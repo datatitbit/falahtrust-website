@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Falahtrust Enterprise — landing page
 
-## Getting Started
+Single-page marketing site for **Falahtrust Enterprise**: business registration support, document and online application help, mobile money (through authorised platforms), phone and computer accessories, delivery and education.
 
-First, run the development server:
+Built with Next.js 16 (App Router, static export), TypeScript and Tailwind CSS 4.
+
+## Run it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static site written to out/
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Updating content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Almost everything a non-developer would change lives in **`lib/site.ts`**:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| To change | Edit in `lib/site.ts` |
+|---|---|
+| Phone, WhatsApp, email | `contact` and `WHATSAPP_NUMBER` |
+| Address / opening hours (currently placeholders) | `contact.address`, `contact.hours` — replace `null` with text |
+| Services, values, steps, FAQs | `services`, `pillars`, `steps`, `faqs` |
+| Remove the preview banner and "Draft" tags, allow search indexing | set `site.isPreview` to `false` |
 
-## Learn More
+Anything shown in `[square brackets]` with a dashed border is a detail still awaiting the client. Customer reviews and team/story sections are intentionally empty until real, verifiable content is supplied.
 
-To learn more about Next.js, take a look at the following resources:
+## Brand assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`npm run brand` regenerates the favicon, app icons, social share image and web logo files from `assets/falahtrust-logo-source.jpeg` and `assets/monogram.svg`. Outputs are committed, so this only needs rerunning when the logo changes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploying (Render static site)
 
-## Deploy on Vercel
+| Setting | Value |
+|---|---|
+| Build command | `npm ci && npm run build` |
+| Publish directory | `out` |
+| Environment variable | `NEXT_PUBLIC_SITE_URL` = the live URL (used for social previews and the sitemap) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Important
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`site.isPreview` is `true`, so the site asks search engines not to index it. Flip it only once every placeholder is resolved and the privacy page has had legal review.
