@@ -30,13 +30,15 @@ Anything shown in `[square brackets]` with a dashed border is a detail still awa
 
 `npm run brand` regenerates the favicon, app icons, social share image and web logo files from `assets/falahtrust-logo-source.jpeg` and `assets/monogram.svg`. Outputs are committed, so this only needs rerunning when the logo changes.
 
-## Deploying (Render static site)
+## Deploying (Namecheap Stellar Plus, cPanel)
 
-| Setting | Value |
-|---|---|
-| Build command | `npm ci && npm run build` |
-| Publish directory | `out` |
-| Environment variable | `NEXT_PUBLIC_SITE_URL` = the live URL (used for social previews and the sitemap) |
+Live domain: **https://falahtrustgh.com** (document root `/home/<cpanel-user>/falahtrustgh.com`).
+
+1. `npm run build` → static site in `out/` (includes `.htaccess` from `public/`).
+2. Zip the *contents* of `out/` with forward-slash paths: `tar -a -c -f falahtrust-site.zip -C out .`
+3. cPanel → File Manager → open the domain's document root → Upload the zip → Extract → delete the zip.
+
+`public/.htaccess` handles clean URLs, the 404 page, www → apex redirect, security headers and caching. The HTTPS redirect is marked `HTTPS-ENABLE`.
 
 ## Important
 

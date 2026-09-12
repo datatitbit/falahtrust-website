@@ -1,0 +1,44 @@
+# Falahtrust Enterprise: web server rules for Namecheap Stellar Plus (cPanel).
+# Copied into out/ by `npm run build`; upload out/ to the domain's document root.
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+AddType application/manifest+json .webmanifest
+AddType image/webp .webp
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS-ENABLE: uncomment these two lines once the SSL certificate is active.
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^ https://falahtrustgh.com%{REQUEST_URI} [R=301,L]
+
+  # www.falahtrustgh.com -> falahtrustgh.com (keeps the current scheme)
+  RewriteCond %{HTTP_HOST} ^www\.falahtrustgh\.com$ [NC]
+  RewriteCond %{HTTPS} =on
+  RewriteRule ^ https://falahtrustgh.com%{REQUEST_URI} [R=301,L]
+  RewriteCond %{HTTP_HOST} ^www\.falahtrustgh\.com$ [NC]
+  RewriteRule ^ http://falahtrustgh.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  # Next.js static export needs inline scripts/styles; everything else is locked to this site.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+
+  # Pages always revalidate; fingerprinted build assets cache for a year.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|webp|svg|ico|webmanifest)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>

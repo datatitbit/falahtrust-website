@@ -6,7 +6,7 @@ import { contact, regulatoryNotice, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Privacy & notices",
   description: `How ${site.name} handles your information, and important notices about our services.`,
-  alternates: { canonical: "/privacy" },
+  alternates: { canonical: "/privacy/" },
 };
 
 export default function PrivacyPage() {

@@ -17,7 +17,7 @@ export const site = {
   tagline: "Teaching minds, building wealth and serving faith",
   description:
     "Business registration support, document and online application help, mobile money, phone accessories, delivery and education, in one trusted place.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://falahtrust-website.onrender.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://falahtrustgh.com",
   /** While true: preview banner + draft tags show, and search engines are asked not to index. */
   isPreview: true,
 } as const;
