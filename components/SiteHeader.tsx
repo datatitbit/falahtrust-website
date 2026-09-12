@@ -30,13 +30,15 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-navy-900/85 text-white backdrop-blur-lg">
       <div className="container-page flex h-[4.5rem] items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3" aria-label="Falahtrust Enterprise home">
-          <Image
-            src="/brand/falahtrust-emblem-128.webp"
-            alt=""
-            width={128}
-            height={128}
-            className="size-11"
-          />
+          <span className="grid size-11 place-items-center rounded-full bg-white p-1 ring-2 ring-gold-400/60">
+            <Image
+              src="/brand/falahtrust-emblem-128.webp"
+              alt=""
+              width={128}
+              height={128}
+              className="size-full"
+            />
+          </span>
           <span className="flex flex-col leading-none">
             <span className="font-display text-lg font-semibold tracking-tight">Falahtrust</span>
             <span className="mt-1 text-[0.62rem] font-semibold tracking-[0.32em] text-gold-400">

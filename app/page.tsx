@@ -160,17 +160,19 @@ function Hero() {
           </ul>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[26rem] sm:max-w-md lg:max-w-[32rem]">
-          <div aria-hidden="true" className="emblem-ring absolute inset-[4%] rounded-full" />
-          <Image
-            src="/brand/falahtrust-emblem.webp"
-            alt="Falahtrust Enterprise logo: an F and T monogram beneath a star, with city buildings and an open book"
-            width={640}
-            height={640}
-            loading="eager"
-            fetchPriority="high"
-            className="relative h-auto w-full drop-shadow-[0_30px_60px_rgb(0_0_0/0.55)]"
-          />
+        <div className="relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-md lg:max-w-[30rem]">
+          <div aria-hidden="true" className="emblem-ring absolute -inset-[4%] rounded-full" />
+          <div className="relative grid size-full place-items-center rounded-full bg-white p-[9%] shadow-[0_40px_80px_-30px_rgb(0_0_0/0.75)] ring-4 ring-gold-400/50">
+            <Image
+              src="/brand/falahtrust-emblem.webp"
+              alt="Falahtrust Enterprise logo: an F and T monogram beneath a star, with city buildings and an open book"
+              width={640}
+              height={640}
+              loading="eager"
+              fetchPriority="high"
+              className="h-auto w-full"
+            />
+          </div>
           {chips.map((chip) => (
             <div key={chip.label} aria-hidden="true" className={`glass-chip absolute hidden sm:flex ${chip.className}`}>
               <span className="grid size-8 place-items-center rounded-full bg-gold-400 text-navy-900">

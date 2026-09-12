@@ -10,7 +10,7 @@ import sharp from "sharp";
 
 const root = new URL("../", import.meta.url);
 const at = (rel) => fileURLToPath(new URL(rel, root));
-const NAVY = { r: 6, g: 18, b: 43, alpha: 1 };
+const WHITE = { r: 255, g: 255, b: 255, alpha: 1 };
 const CLEAR = { r: 0, g: 0, b: 0, alpha: 0 };
 
 await mkdir(at("public/brand/"), { recursive: true });
@@ -53,8 +53,8 @@ const emblem = await sharp(data, { raw: info })
   .toBuffer();
 
 const sized = (size) => sharp(emblem).resize(size, size).png().toBuffer();
-const onNavy = async (size, inner) =>
-  sharp({ create: { width: size, height: size, channels: 4, background: NAVY } })
+const onWhite = async (size, inner) =>
+  sharp({ create: { width: size, height: size, channels: 4, background: WHITE } })
     .composite([{ input: await sized(inner), gravity: "center" }])
     .png()
     .toBuffer();
@@ -63,11 +63,14 @@ await sharp(emblem).resize(640, 640).webp({ quality: 90 }).toFile(at("public/bra
 await sharp(emblem).resize(128, 128).webp({ quality: 92 }).toFile(at("public/brand/falahtrust-emblem-128.webp"));
 await writeFile(at("public/brand/falahtrust-emblem.png"), await sized(512));
 
-// 2. App icons (solid navy behind the emblem so they read on any home screen).
-await writeFile(at("app/apple-icon.png"), await onNavy(180, 152));
-await writeFile(at("public/brand/icon-192.png"), await onNavy(192, 166));
-await writeFile(at("public/brand/icon-512.png"), await onNavy(512, 444));
-await writeFile(at("public/brand/icon-maskable-512.png"), await onNavy(512, 330));
+// 2. Logo on white (owner's choice) for print/social use, and the app icons.
+const logoWhite = await onWhite(1024, 880);
+await writeFile(at("public/brand/falahtrust-logo-white.png"), logoWhite);
+await sharp(logoWhite).jpeg({ quality: 92 }).toFile(at("public/brand/falahtrust-logo-white.jpg"));
+await writeFile(at("app/apple-icon.png"), await onWhite(180, 152));
+await writeFile(at("public/brand/icon-192.png"), await onWhite(192, 166));
+await writeFile(at("public/brand/icon-512.png"), await onWhite(512, 444));
+await writeFile(at("public/brand/icon-maskable-512.png"), await onWhite(512, 330));
 
 // 3. Favicon: the detailed emblem turns to mush at 16px, so tabs use the simplified monogram.
 const monogram = await readFile(at("assets/monogram.svg"));
@@ -122,8 +125,14 @@ const ogSvg = `
   <text x="80" y="410" font-family="${font}" font-size="62" font-weight="700" fill="url(#gold)">trusted place.</text>
   <text x="80" y="520" font-family="${font}" font-size="27" fill="#C7D2E6">Teaching minds &#183; Building wealth &#183; Serving faith</text>
 </svg>`;
+const disc = Buffer.from(
+  `<svg xmlns="http://www.w3.org/2000/svg" width="470" height="470"><circle cx="235" cy="235" r="231" fill="#FFFFFF" stroke="#E9C25A" stroke-opacity="0.7" stroke-width="6"/></svg>`,
+);
 await sharp(Buffer.from(ogSvg))
-  .composite([{ input: await sized(430), left: 700, top: 100 }])
+  .composite([
+    { input: disc, left: 680, top: 80 },
+    { input: await sized(380), left: 725, top: 125 },
+  ])
   .png()
   .toFile(at("app/opengraph-image.png"));
 

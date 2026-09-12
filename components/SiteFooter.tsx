@@ -12,7 +12,9 @@ export function SiteFooter() {
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Link href="/" className="inline-flex items-center gap-3" aria-label="Falahtrust Enterprise home">
-            <Image src="/brand/falahtrust-emblem-128.webp" alt="" width={128} height={128} className="size-14" />
+            <span className="grid size-14 place-items-center rounded-full bg-white p-1.5 ring-2 ring-gold-400/60">
+              <Image src="/brand/falahtrust-emblem-128.webp" alt="" width={128} height={128} className="size-full" />
+            </span>
             <span className="font-display text-xl font-semibold text-white">{site.name}</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-gold-300">{site.tagline}.</p>
