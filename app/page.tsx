@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { DraftTag, PendingBlock, Placeholder } from "@/components/Pending";
@@ -100,19 +99,13 @@ function SectionHeading({
 }
 
 function Hero() {
-  const chips: { label: string; icon: IconName; className: string }[] = [
-    { label: "Mobile money", icon: "wallet", className: "left-0 top-[14%] float-slow" },
-    { label: "Business registration", icon: "building", className: "right-0 top-[48%] float-slower" },
-    { label: "Delivery", icon: "truck", className: "left-[6%] bottom-[6%] float-slow" },
-  ];
-
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden bg-navy-900 text-white">
       <div aria-hidden="true" className="pattern-stars absolute inset-0 -z-10" />
       <div aria-hidden="true" className="hero-glow absolute inset-0 -z-10" />
 
-      <div className="container-page grid items-center gap-14 pt-14 pb-20 md:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28">
-        <div>
+      <div className="container-page pt-14 pb-20 md:pt-20 lg:pb-28">
+        <div className="max-w-2xl">
           <p className="inline-flex items-center gap-2 rounded-2xl border border-gold-400/30 bg-white/5 px-4 py-1.5 text-sm font-medium text-gold-300 sm:rounded-full">
             <Icon name="star" className="size-3.5 flex-none text-gold-400" />
             <span>Teaching minds · Building wealth · Serving faith</span>
@@ -160,29 +153,6 @@ function Hero() {
               </a>
             </li>
           </ul>
-        </div>
-
-        <div className="relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-md lg:max-w-[30rem]">
-          <div aria-hidden="true" className="emblem-ring absolute -inset-[4%] rounded-full" />
-          <div className="relative grid size-full place-items-center rounded-full bg-white p-[9%] shadow-[0_40px_80px_-30px_rgb(0_0_0/0.75)] ring-4 ring-gold-400/50">
-            <Image
-              src="/brand/falahtrust-emblem.webp"
-              alt="Falahtrust Enterprise logo: an F and T monogram beneath a star, with city buildings and an open book"
-              width={640}
-              height={640}
-              loading="eager"
-              fetchPriority="high"
-              className="h-auto w-full"
-            />
-          </div>
-          {chips.map((chip) => (
-            <div key={chip.label} aria-hidden="true" className={`glass-chip absolute hidden sm:flex ${chip.className}`}>
-              <span className="grid size-8 place-items-center rounded-full bg-gold-400 text-navy-900">
-                <Icon name={chip.icon} className="size-4" />
-              </span>
-              {chip.label}
-            </div>
-          ))}
         </div>
       </div>
     </section>

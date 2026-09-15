@@ -183,37 +183,6 @@ body {
       radial-gradient(44rem 30rem at 0% 100%, rgb(31 74 168 / 0.45), transparent 70%);
   }
 
-  .emblem-ring {
-    background: conic-gradient(from 180deg, transparent, rgb(233 194 90 / 0.35), transparent 40%, rgb(58 111 216 / 0.35), transparent 80%);
-    filter: blur(28px);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .emblem-ring {
-      animation: spin 18s linear infinite;
-    }
-    .float-slow {
-      animation: float 7s ease-in-out infinite;
-    }
-    .float-slower {
-      animation: float 9s ease-in-out infinite reverse;
-    }
-  }
-
-  .glass-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.6rem 0.95rem 0.6rem 0.6rem;
-    border-radius: 999px;
-    background: rgb(11 31 71 / 0.72);
-    border: 1px solid rgb(255 255 255 / 0.14);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.7);
-    color: #fff;
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-
   .icon-tile {
     display: grid;
     place-items: center;
@@ -318,18 +287,3 @@ body {
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
