@@ -10,6 +10,7 @@ import {
   regulatoryNotice,
   services,
   site,
+  socials,
   steps,
   whatsappLink,
   type IconName,
@@ -27,6 +28,7 @@ export default function Home() {
     image: `${site.url}/opengraph-image.png`,
     telephone: "+233209593337",
     email: contact.email.display,
+    sameAs: socials.map((s) => s.href),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Services",
@@ -486,6 +488,25 @@ function Contact() {
               </div>
             ))}
           </dl>
+
+          <div className="mt-8">
+            <p className="text-sm text-slate-400">Follow us</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {socials.map((s) => (
+                <li key={s.name}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${site.name} on ${s.name} (opens in a new tab)`}
+                    className="grid size-11 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-slate-200 transition-colors hover:border-gold-400/60 hover:text-gold-300"
+                  >
+                    <Icon name={s.icon} className="size-5" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <RequestForm />
       </div>

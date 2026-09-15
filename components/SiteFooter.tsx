@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { Placeholder } from "@/components/Pending";
-import { contact, regulatoryNotice, services, site, whatsappLink } from "@/lib/site";
+import { contact, regulatoryNotice, services, site, socials, whatsappLink } from "@/lib/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -18,6 +18,21 @@ export function SiteFooter() {
             <span className="font-display text-xl font-semibold text-white">{site.name}</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-gold-300">{site.tagline}.</p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {socials.map((s) => (
+              <li key={s.name}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${site.name} on ${s.name} (opens in a new tab)`}
+                  className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/[0.04] text-slate-200 transition-colors hover:border-gold-400/60 hover:text-gold-300"
+                >
+                  <Icon name={s.icon} className="size-4.5" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div>

@@ -99,6 +99,40 @@ const paths: Record<IconName, ReactNode> = {
     </>
   ),
   chevronDown: <path d="M6 9l6 6 6-6" />,
+  instagram: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+    </>
+  ),
+  twitter: (
+    <path
+      d="M4 4l7.2 9.3L4.4 20H7l5.6-5.7L17 20h3.2l-7.6-9.8L19.7 4h-2.6l-5.1 5.3L7.3 4z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
+  youtube: (
+    <>
+      <rect x="2.5" y="5.5" width="19" height="13" rx="3.5" />
+      <path d="M10.5 9.3l5 2.7-5 2.7z" fill="currentColor" stroke="none" />
+    </>
+  ),
+  facebook: (
+    <path
+      d="M14.5 21v-7.2h2.4l.4-2.8h-2.8V9.2c0-.8.2-1.4 1.4-1.4h1.5V5.3c-.3 0-1.1-.1-2.1-.1-2.1 0-3.6 1.3-3.6 3.7v2.1H9.3v2.8h2.4V21z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
+  tiktok: (
+    <path
+      d="M14 3.5c.4 1.9 1.6 3.1 3.7 3.3v2.6c-1.3.1-2.5-.3-3.7-1.1v6.1a5 5 0 1 1-4.3-5v2.7a2.3 2.3 0 1 0 1.7 2.3V3.5z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
 };
 
 export function Icon({ name, ...rest }: { name: IconName } & SVGProps<SVGSVGElement>) {

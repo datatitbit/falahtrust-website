@@ -5,8 +5,10 @@
  * - Name, tagline, services, phone, WhatsApp, email and the regulatory notice
  *   come from the client's intake form (2026-09-12). Country code +233 was
  *   confirmed by the owner in chat.
- * - `address`, `hours` and social links were not supplied and stay `null`,
- *   which renders a visible placeholder instead of a link.
+ * - `address` and `hours` were not supplied and stay `null`, which renders a
+ *   visible placeholder instead of a link. Social links and the enquiries
+ *   email were supplied by the owner in chat on 2026-09-16 (email replaces
+ *   the intake's Falahtrust11@gmail.com).
  * - Service summaries, values and "how it works" wording are drafted by us and
  *   carry a "Draft" tag while `isPreview` is true.
  */
@@ -27,12 +29,20 @@ const WHATSAPP_NUMBER = "233209593337";
 export const contact = {
   phone: { display: "+233 20 959 3337", href: "tel:+233209593337" },
   whatsapp: { display: "+233 20 959 3337" },
-  email: { display: "Falahtrust11@gmail.com", href: "mailto:Falahtrust11@gmail.com" },
+  email: { display: "falahtrustgh@gmail.com", href: "mailto:falahtrustgh@gmail.com" },
   /** Not supplied by the client yet. */
   address: null as string | null,
   /** Not supplied by the client yet. */
   hours: null as string | null,
 };
+
+export const socials: { name: string; icon: IconName; href: string }[] = [
+  { name: "Instagram", icon: "instagram", href: "https://www.instagram.com/falahtrustgh/" },
+  { name: "X (Twitter)", icon: "twitter", href: "https://x.com/falahtrustgh" },
+  { name: "YouTube", icon: "youtube", href: "https://www.youtube.com/@falahtrustgh" },
+  { name: "Facebook", icon: "facebook", href: "https://www.facebook.com/share/1Bx2byGrEc/" },
+  { name: "TikTok", icon: "tiktok", href: "https://www.tiktok.com/@falahtrustgh" },
+];
 
 export const regulatoryNotice =
   "Falahtrust Enterprise does not provide banking, lending, investment or other regulated financial services. Mobile money transactions are carried out through authorised telecommunications and mobile-money platforms.";
@@ -68,7 +78,12 @@ export type IconName =
   | "shield"
   | "check"
   | "info"
-  | "chevronDown";
+  | "chevronDown"
+  | "instagram"
+  | "twitter"
+  | "youtube"
+  | "facebook"
+  | "tiktok";
 
 export interface Service {
   id: string;
