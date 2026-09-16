@@ -69,12 +69,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        {site.isPreview && (
-          <div role="note" className="bg-amber-100 px-4 py-2 text-center text-[0.8rem] leading-snug text-amber-950">
-            <strong>Website preview.</strong> Wording tagged “Draft” and details in [brackets] are
-            awaiting confirmation from Falahtrust Enterprise.
-          </div>
-        )}
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

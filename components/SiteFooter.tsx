@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { Placeholder } from "@/components/Pending";
 import { contact, regulatoryNotice, services, site, socials, whatsappLink } from "@/lib/site";
 
 export function SiteFooter() {
@@ -76,10 +75,12 @@ export function SiteFooter() {
               <Icon name="mail" className="mt-0.5 size-4 flex-none text-gold-400" />
               <a href={contact.email.href} className="break-all hover:text-gold-300">{contact.email.display}</a>
             </li>
-            <li className="flex items-start gap-2.5">
-              <Icon name="pin" className="mt-0.5 size-4 flex-none text-gold-400" />
-              {contact.address ?? <Placeholder>[Business Address]</Placeholder>}
-            </li>
+            {contact.address && (
+              <li className="flex items-start gap-2.5">
+                <Icon name="pin" className="mt-0.5 size-4 flex-none text-gold-400" />
+                {contact.address}
+              </li>
+            )}
           </ul>
         </div>
       </div>

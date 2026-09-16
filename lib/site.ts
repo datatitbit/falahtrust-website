@@ -5,12 +5,14 @@
  * - Name, tagline, services, phone, WhatsApp, email and the regulatory notice
  *   come from the client's intake form (2026-09-12). Country code +233 was
  *   confirmed by the owner in chat.
- * - `address` and `hours` were not supplied and stay `null`, which renders a
- *   visible placeholder instead of a link. Social links and the enquiries
- *   email were supplied by the owner in chat on 2026-09-16 (email replaces
- *   the intake's Falahtrust11@gmail.com).
- * - Service summaries, values and "how it works" wording are drafted by us and
- *   carry a "Draft" tag while `isPreview` is true.
+ * - `address` and `hours` were not supplied and stay `null`; the site simply
+ *   omits those rows until real values are added here (owner instruction
+ *   2026-09-16: ask directly for missing facts, never show placeholder text
+ *   on the live site).
+ * - Social links and the enquiries email were supplied by the owner in chat
+ *   on 2026-09-16 (email replaces the intake's Falahtrust11@gmail.com).
+ * - Service summaries, values and "how it works" wording are drafted by us;
+ *   normal marketing copy, not a fact that could be fabricated.
  */
 
 export const site = {
@@ -20,7 +22,7 @@ export const site = {
   description:
     "Business registration support, document and online application help, mobile money, phone accessories, delivery and education, in one trusted place.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://falahtrustgh.com",
-  /** While true: preview banner + draft tags show, and search engines are asked not to index. */
+  /** While true, search engines are asked not to index the site (no visible effect on the page itself). */
   isPreview: true,
 } as const;
 
@@ -90,7 +92,7 @@ export interface Service {
   title: string;
   summary: string;
   icon: IconName;
-  /** Detail the client still needs to confirm, shown as a visible placeholder. */
+  /** Detail the client still needs to confirm. Not shown on the page; tracked in HANDOFF_REPORT.md. */
   pending?: string;
   /** Compliance wording that must stay attached to this service. */
   notice?: string;
@@ -188,6 +190,7 @@ export const steps: { title: string; body: string }[] = [
   },
 ];
 
+/** `pending` is tracked in HANDOFF_REPORT.md but not shown on the page. */
 export const faqs: { q: string; a: string; pending?: string }[] = [
   {
     q: "Is Falahtrust a bank or a lender?",

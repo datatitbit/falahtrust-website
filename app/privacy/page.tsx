@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PendingBlock, Placeholder } from "@/components/Pending";
 import { contact, regulatoryNotice, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -18,12 +17,10 @@ export default function PrivacyPage() {
       </h1>
       <p className="mt-4 text-muted">Last updated: 12 September 2026</p>
 
-      <div className="mt-8">
-        <PendingBlock title="legal review">
-          This page is a plain-language draft prepared with the website. It is not legal advice and must be
-          reviewed by Falahtrust Enterprise&apos;s own legal adviser before the site launches.
-        </PendingBlock>
-      </div>
+      <p className="mt-8 rounded-2xl border border-line bg-surface-2 p-5 text-sm leading-relaxed text-muted">
+        This page explains this policy in plain language. It is not legal advice, and should be reviewed
+        by Falahtrust Enterprise&apos;s own legal adviser.
+      </p>
 
       <div className="mt-12 space-y-10 leading-relaxed text-muted [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-ink">
         <section>
@@ -38,7 +35,7 @@ export default function PrivacyPage() {
             <a href={contact.phone.href} className="font-semibold text-brand-ink underline">
               {contact.phone.display}
             </a>
-            . Our address: <Placeholder>[Business Address]</Placeholder>
+            .
           </p>
         </section>
 
@@ -60,8 +57,8 @@ export default function PrivacyPage() {
           <p className="mt-3">
             If you message, call or email us, we use the details you share only to respond to you and to
             provide the service you asked for. Messages sent through WhatsApp are also handled under
-            WhatsApp&apos;s own terms and privacy policy. We keep your information for{" "}
-            <Placeholder>[retention period]</Placeholder> and do not sell it.
+            WhatsApp&apos;s own terms and privacy policy. We keep your information only for as long as
+            needed to do that, and do not sell it.
           </p>
         </section>
 

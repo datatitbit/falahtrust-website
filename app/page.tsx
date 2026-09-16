@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { DraftTag, PendingBlock, Placeholder } from "@/components/Pending";
 import { RequestForm } from "@/components/RequestForm";
 import {
   contact,
@@ -50,7 +49,6 @@ export default function Home() {
       <Values />
       <HowItWorks />
       <Notice />
-      <About />
       <Faq />
       <Contact />
     </>
@@ -62,25 +60,20 @@ function SectionHeading({
   eyebrow,
   title,
   intro,
-  draft,
   tone = "light",
 }: {
   id: string;
   eyebrow: string;
   title: string;
   intro?: string;
-  draft?: boolean;
   tone?: "light" | "dark";
 }) {
   return (
     <div className="max-w-2xl">
-      <div className="flex flex-wrap items-center gap-3">
-        <p className={tone === "dark" ? "eyebrow !text-gold-400" : "eyebrow"}>
-          <Icon name="star" className="size-3" />
-          {eyebrow}
-        </p>
-        {draft && <DraftTag />}
-      </div>
+      <p className={tone === "dark" ? "eyebrow !text-gold-400" : "eyebrow"}>
+        <Icon name="star" className="size-3" />
+        {eyebrow}
+      </p>
       <h2
         id={id}
         className={`mt-4 font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl ${
@@ -186,7 +179,6 @@ function Services() {
           eyebrow="What we do"
           title="Seven services, one team you can trust"
           intro="From registering your business to getting a parcel delivered, Falahtrust brings the everyday services you depend on together under one roof."
-          draft
         />
 
         <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -215,11 +207,6 @@ function Services() {
                 <p className="flex gap-2 rounded-xl bg-surface-2 p-3 text-sm leading-snug text-ink">
                   <Icon name="shield" className="mt-px size-4 flex-none text-accent-ink" />
                   {s.notice}
-                </p>
-              )}
-              {s.pending && (
-                <p className="text-sm text-accent-ink">
-                  <Placeholder>{s.pending}</Placeholder>
                 </p>
               )}
 
@@ -251,7 +238,6 @@ function Values() {
           title={`${site.tagline}.`}
           intro="Three promises sit behind our name and guide how we serve every customer."
           tone="dark"
-          draft
         />
         <ul className="mt-14 grid gap-5 md:grid-cols-3">
           {pillars.map((p, i) => (
@@ -286,7 +272,6 @@ function HowItWorks() {
           eyebrow="How it works"
           title="Getting help is simple"
           intro="No long queues or guesswork. Just tell us what you need."
-          draft
         />
         <ol className="mt-14 grid gap-5 md:grid-cols-3">
           {steps.map((step, i) => (
@@ -324,31 +309,6 @@ function Notice() {
   );
 }
 
-function About() {
-  return (
-    <section id="about" aria-labelledby="about-title" className="border-t border-line bg-surface py-20 sm:py-28">
-      <div className="container-page">
-        <SectionHeading
-          id="about-title"
-          eyebrow="About us"
-          title="The people behind Falahtrust"
-          intro="This is where our story, our team and the customers we have served will appear."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          <PendingBlock title="our story and team">
-            The founding story, the people who serve customers and photos of the business. We only publish
-            real details supplied by Falahtrust.
-          </PendingBlock>
-          <PendingBlock title="customer reviews">
-            Genuine, verifiable reviews from real customers. None are shown until Falahtrust supplies
-            them, because invented reviews mislead customers and break consumer-protection rules.
-          </PendingBlock>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Faq() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="py-20 sm:py-28">
@@ -371,11 +331,6 @@ function Faq() {
               </summary>
               <div className="pb-6 leading-relaxed text-muted">
                 <p>{f.a}</p>
-                {f.pending && (
-                  <p className="mt-3 text-sm text-accent-ink">
-                    <Placeholder>{f.pending}</Placeholder>
-                  </p>
-                )}
               </div>
             </details>
           ))}
@@ -416,16 +371,12 @@ function Contact() {
       ),
       wide: true,
     },
-    {
-      icon: "pin",
-      label: "Visit",
-      value: contact.address ?? <Placeholder>[Business Address]</Placeholder>,
-    },
-    {
-      icon: "clock",
-      label: "Opening hours",
-      value: contact.hours ?? <Placeholder>[Opening Hours]</Placeholder>,
-    },
+    ...(contact.address
+      ? [{ icon: "pin" as IconName, label: "Visit", value: contact.address }]
+      : []),
+    ...(contact.hours
+      ? [{ icon: "clock" as IconName, label: "Opening hours", value: contact.hours }]
+      : []),
   ];
 
   return (

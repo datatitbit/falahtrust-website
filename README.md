@@ -20,11 +20,11 @@ Almost everything a non-developer would change lives in **`lib/site.ts`**:
 | To change | Edit in `lib/site.ts` |
 |---|---|
 | Phone, WhatsApp, email | `contact` and `WHATSAPP_NUMBER` |
-| Address / opening hours (currently placeholders) | `contact.address`, `contact.hours` — replace `null` with text |
+| Address / opening hours (not shown until set) | `contact.address`, `contact.hours` — replace `null` with text |
 | Services, values, steps, FAQs | `services`, `pillars`, `steps`, `faqs` |
-| Remove the preview banner and "Draft" tags, allow search indexing | set `site.isPreview` to `false` |
+| Allow search engines to index the site | set `site.isPreview` to `false` |
 
-Anything shown in `[square brackets]` with a dashed border is a detail still awaiting the client. Customer reviews and team/story sections are intentionally empty until real, verifiable content is supplied.
+The site never shows placeholder or "draft" markers to visitors — a detail that's missing (address, hours, a service's pricing) is simply left out of the page rather than shown as `[bracketed text]`. What's still missing is tracked in `HANDOFF_REPORT.md` and as `pending` notes in `lib/site.ts`, and asked for directly instead.
 
 ## Brand assets
 
@@ -42,4 +42,4 @@ Live domain: **https://falahtrustgh.com** (document root `/home/<cpanel-user>/fa
 
 ## Important
 
-`site.isPreview` is `true`, so the site asks search engines not to index it. Flip it only once every placeholder is resolved and the privacy page has had legal review.
+`site.isPreview` is `true`, so the site asks search engines not to index it. Flip it once the privacy page has had legal review and you're ready for the site to appear in search results.
