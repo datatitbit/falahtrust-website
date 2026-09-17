@@ -45,12 +45,22 @@ export default function PrivacyPage() {
           <h2>2. What we collect</h2>
           <h3 className="mt-4">Information you choose to give us</h3>
           <p className="mt-3">
-            If you use the request form on this site, message us on WhatsApp, call, or email us, you may
-            share your <strong>name</strong>, <strong>email address</strong>, <strong>phone number</strong>,
-            the service you&apos;re asking about, and any other details you choose to add. The form marks
-            what&apos;s required: your name and the service you need are required; you need to give us
-            either an email address or a phone number (or both) so we have a way to reply; any further
-            details are optional.
+            This site has two separate forms, for two separate reasons. The <strong>request form</strong> in
+            the Contact section is for a specific enquiry: it collects your <strong>name</strong>,{" "}
+            <strong>email address</strong>, <strong>phone number</strong>, the service you&apos;re asking
+            about, and any further details you add. Your name and the service you need are required; you
+            need to give us either an email address or a phone number (or both) so we have a way to reply.
+          </p>
+          <p className="mt-3">
+            The shorter <strong>&ldquo;stay in the loop&rdquo;</strong> signup in the footer is not tied to
+            any specific enquiry — it just lets us keep in touch with people who are interested in
+            Falahtrust, so it only asks for your name (optional) and one way to reach you (email or
+            WhatsApp number). Submitting it is how you opt in to hearing from us this way; you can opt out
+            at any time by telling us on WhatsApp or by email.
+          </p>
+          <p className="mt-3">
+            If you message us on WhatsApp, call, or email us directly instead of using a form, the same
+            principles apply to whatever you choose to share with us.
           </p>
           <h3 className="mt-4">Information collected automatically</h3>
           <p className="mt-3">
@@ -63,12 +73,13 @@ export default function PrivacyPage() {
         <section>
           <h2>3. How we use it, and why that&apos;s allowed</h2>
           <p className="mt-3">
-            We use the information you give us only to respond to your enquiry and to provide the service
-            you&apos;ve asked about. We rely on two legal grounds for this: your <strong>consent</strong> —
-            you choose to submit the form or message us — and our <strong>legitimate interest</strong> in
-            running a responsive business, which we balance against your right to privacy. We do not use
-            your details for marketing you haven&apos;t asked for, and we do not sell, rent, or trade your
-            personal information to anyone.
+            We use request-form information only to respond to your enquiry and to provide the service
+            you&apos;ve asked about. We use &ldquo;stay in the loop&rdquo; information only to occasionally
+            let you know about new services from Falahtrust. We rely on two legal grounds: your{" "}
+            <strong>consent</strong> — you choose to submit a form or message us — and, for the request
+            form, our <strong>legitimate interest</strong> in running a responsive business, which we
+            balance against your right to privacy. We do not use your details for marketing you
+            haven&apos;t asked for, and we do not sell, rent, or trade your personal information to anyone.
           </p>
         </section>
 

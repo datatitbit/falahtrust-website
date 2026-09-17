@@ -76,7 +76,7 @@ export function RequestForm() {
       const res = await fetch("/send-inquiry.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(fields as unknown as Record<string, string>),
+        body: new URLSearchParams({ kind: "quote", ...fields }),
       });
       if (!res.ok) throw new Error("Request failed");
       setStatus("sent");

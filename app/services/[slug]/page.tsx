@@ -38,6 +38,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     provider: { "@type": "LocalBusiness", name: site.name, url: site.url, telephone: "+233209593337" },
     areaServed: "GH",
     url: `${site.url}/services/${category.slug}`,
+    // Only what's actually available today — "coming soon" items are deliberately excluded.
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: category.title,
@@ -126,6 +127,25 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 </li>
               ))}
             </ul>
+
+            {category.comingSoon && category.comingSoon.length > 0 && (
+              <div className="mt-6">
+                <h3 className="font-display text-sm font-semibold tracking-wide text-muted uppercase">
+                  Coming soon
+                </h3>
+                <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {category.comingSoon.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 rounded-2xl border border-dashed border-line bg-surface-2 p-4"
+                    >
+                      <Icon name="clock" className="mt-0.5 size-5 flex-none text-accent-ink" />
+                      <span className="text-muted">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {category.notice && (
               <p className="mt-6 flex gap-2 rounded-2xl bg-surface-2 p-4 text-sm leading-snug text-ink">

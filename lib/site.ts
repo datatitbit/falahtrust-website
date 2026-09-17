@@ -11,13 +11,15 @@
  *   three categories) and dropped the "Online Shop" / cart concept — the
  *   owner asked for the service/category browsing pattern only, not an
  *   e-commerce storefront (no prices, stock or checkout exist to back one).
- * - `address` stays `null` per owner instruction ("leave it as it was") — still
- *   not shown anywhere until a real address is supplied.
- * - `hours` is now a standard weekday retail schedule, at the owner's explicit
+ * - `address` is "Kasoa, Ghana", given by the owner in chat (2026-09-18).
+ *   `hours` is a standard weekday retail schedule, at the owner's explicit
  *   request ("opening hours use standard") rather than a real confirmed
  *   time — tracked as a default in HANDOFF_REPORT.md, easy to correct.
- * - CCTV installation was confirmed by the owner in chat and added to that
- *   category's item list.
+ * - CCTV installation was confirmed as offered but marked "coming soon" per
+ *   the owner (2026-09-18) — listed separately from what's available today.
+ * - Delivery areas (Accra and Kasoa) given by the owner (2026-09-18).
+ * - Falahtrust Academy's format — one-on-one, online or in person, for JHS/SHS
+ *   students aged 12+ — given by the owner (2026-09-18).
  * - No prices are stated anywhere on the site (owner instruction: "find a way
  *   not to specify" pricing) — category pages and the FAQ instead say
  *   pricing depends on the request and point to WhatsApp/phone for a quote.
@@ -42,8 +44,7 @@ export const contact = {
   phone: { display: "+233 20 959 3337", href: "tel:+233209593337" },
   whatsapp: { display: "+233 20 959 3337" },
   email: { display: "falahtrustgh@gmail.com", href: "mailto:falahtrustgh@gmail.com" },
-  /** Not supplied by the client yet — leave as null (owner instruction). */
-  address: null as string | null,
+  address: "Kasoa, Ghana" as string | null,
   /** Standard weekday retail hours, at the owner's request — not independently confirmed. */
   hours: "Monday – Saturday, 8:00 AM – 6:00 PM" as string | null,
 };
@@ -120,6 +121,8 @@ export interface Category {
   items: string[];
   /** Compliance wording that must stay attached to this category. */
   notice?: string;
+  /** Real, but not available yet — shown separately from `items`, never implied as ready today. */
+  comingSoon?: string[];
   /** Points to a related category to avoid duplicate listings (e.g. accessories shared with Gaming). */
   seeAlso?: { slug: string; label: string };
   /** Search terms this page should read naturally for. */
@@ -218,7 +221,8 @@ export const categories: Category[] = [
     tagline: "CCTV cameras & accessories",
     summary: "CCTV cameras and accessories to help you keep an eye on your home or business.",
     icon: "cctv",
-    items: ["CCTV cameras", "CCTV accessories", "CCTV installation"],
+    items: ["CCTV cameras", "CCTV accessories"],
+    comingSoon: ["CCTV installation"],
     keywords: ["CCTV cameras Ghana", "security cameras Ghana", "CCTV installation Ghana"],
   },
   {
@@ -244,11 +248,18 @@ export const categories: Category[] = [
   {
     slug: "delivery-logistics",
     title: "Delivery & Logistics",
-    tagline: "Local, document & parcel delivery",
-    summary: "Getting things where they need to be — documents, parcels, shop orders and business deliveries.",
+    tagline: "Serving Accra and Kasoa",
+    summary:
+      "Getting things where they need to be, within Accra and Kasoa — documents, parcels, shop orders and business deliveries.",
     icon: "truck",
-    items: ["Local delivery", "Document delivery", "Parcel delivery", "Shop-to-customer delivery", "Business delivery services"],
-    keywords: ["delivery service Ghana", "document delivery Ghana", "parcel delivery Ghana"],
+    items: [
+      "Local delivery in Accra and Kasoa",
+      "Document delivery",
+      "Parcel delivery",
+      "Shop-to-customer delivery",
+      "Business delivery services",
+    ],
+    keywords: ["delivery service Accra", "delivery service Kasoa", "document delivery Ghana", "parcel delivery Ghana"],
   },
   {
     slug: "sourcing-import-export",
@@ -277,10 +288,16 @@ export function getCategory(slug: string) {
 export const academy = {
   slug: "academy",
   title: "Falahtrust Academy",
-  tagline: "Teaching minds — the first promise in our name.",
+  tagline: "One-on-one tutoring for JHS & SHS students",
   summary:
-    "Online tutoring and educational consultancy, covering the sciences, Arabic and Islamic education, plus guidance for students figuring out their next academic step.",
+    "One-on-one tutoring for JHS and SHS students aged 12 and above, online or in person, covering the sciences, Arabic and Islamic education — plus educational consultancy for students figuring out their next academic step.",
   icon: "graduationCap" as IconName,
+  /** Who it's for and how sessions run. */
+  format: [
+    "One-on-one sessions, not group classes",
+    "For JHS and SHS students, ages 12 and above",
+    "Online or in person",
+  ],
   programmes: [
     "Online tutoring — Biology",
     "Online tutoring — General Science",
@@ -357,7 +374,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Does Falahtrust Academy offer tutoring for school subjects?",
-    a: "Yes. Falahtrust Academy offers online tutoring in Biology, General Science, Arabic and Islamic education, plus educational consultancy and academic guidance.",
+    a: "Yes — one-on-one tutoring for JHS and SHS students aged 12 and above, online or in person, in Biology, General Science, Arabic and Islamic education, plus educational consultancy and academic guidance.",
   },
   {
     q: "Can you help me import or source a product from abroad?",
@@ -365,7 +382,11 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Do you offer delivery?",
-    a: "Yes. Delivery & Logistics covers local delivery, document and parcel delivery, and business delivery services.",
+    a: "Yes, within Accra and Kasoa — local delivery, document and parcel delivery, and business delivery services.",
+  },
+  {
+    q: "Do you install CCTV cameras?",
+    a: "CCTV installation is coming soon. In the meantime we supply CCTV cameras and accessories — message us to check availability.",
   },
   {
     q: "How much do your services cost?",
@@ -373,6 +394,6 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Where are you located and when are you open?",
-    a: `We're open ${contact.hours}. Our street address will be listed here shortly — in the meantime, message or call us and we will point you in the right direction.`,
+    a: `We're based in ${contact.address}, open ${contact.hours}.`,
   },
 ];

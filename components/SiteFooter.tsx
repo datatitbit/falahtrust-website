@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CommunitySignup } from "@/components/CommunitySignup";
 import { Icon } from "@/components/Icon";
 import { academy, categories, contact, regulatoryNotice, site, socials, whatsappLink } from "@/lib/site";
 
@@ -8,6 +9,19 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-navy-950 text-slate-300">
+      <div className="border-b border-white/10 bg-white/[0.03]">
+        <div className="container-page flex flex-col gap-5 py-10 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="font-display text-xl font-semibold text-white">Stay in the loop</h2>
+            <p className="mt-1.5 max-w-md text-sm leading-relaxed text-slate-400">
+              Share your email or WhatsApp number and we&apos;ll keep you posted on new services from
+              Falahtrust.
+            </p>
+          </div>
+          <CommunitySignup />
+        </div>
+      </div>
+
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Link href="/" className="inline-flex items-center gap-3" aria-label="Falahtrust Enterprise home">

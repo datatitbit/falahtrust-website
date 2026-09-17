@@ -77,7 +77,17 @@ export default function AcademyPage() {
 
       <section className="py-16 sm:py-20">
         <div className="container-page">
-          <h2 className="font-display text-2xl font-semibold text-ink">Programmes</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">How it works</h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-3">
+            {academy.format.map((f) => (
+              <li key={f} className="flex items-start gap-3 rounded-2xl border border-line bg-surface-2 p-4">
+                <Icon name="check" className="mt-0.5 size-5 flex-none text-accent-ink" />
+                <span className="text-ink">{f}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h2 className="mt-14 font-display text-2xl font-semibold text-ink">Programmes</h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">
             {academy.programmes.map((p) => (
               <li key={p} className="flex items-start gap-3 rounded-2xl border border-line bg-surface p-4">
