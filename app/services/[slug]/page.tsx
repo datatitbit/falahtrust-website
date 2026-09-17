@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/Icon";
-import { categories, getCategory, site, whatsappLink } from "@/lib/site";
+import { categories, getCategory, pricingNote, site, whatsappLink } from "@/lib/site";
 
 export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
@@ -150,6 +150,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <p className="mt-3 leading-relaxed text-muted">
               Message us with what you need and we&apos;ll confirm the next step — no queues, no guesswork.
             </p>
+            <p className="mt-3 text-sm text-muted">{pricingNote}</p>
             <a
               href={whatsappLink(`Hello Falahtrust, I would like to ask about ${category.title}.`)}
               target="_blank"

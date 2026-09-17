@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { academy, site, whatsappLink } from "@/lib/site";
+import { academy, pricingNote, site, whatsappLink } from "@/lib/site";
 
 const description = `${academy.summary} Serving students in Ghana — message Falahtrust Enterprise on WhatsApp to get started.`;
 
@@ -87,7 +87,9 @@ export default function AcademyPage() {
             ))}
           </ul>
 
-          <div className="mt-12 flex flex-col items-start gap-4 rounded-3xl border border-line bg-surface-2 p-7 sm:flex-row sm:items-center sm:justify-between">
+          <p className="mt-8 text-sm text-muted">{pricingNote}</p>
+
+          <div className="mt-6 flex flex-col items-start gap-4 rounded-3xl border border-line bg-surface-2 p-7 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-lg font-semibold text-ink">Want to know more about a programme?</p>
             <a
               href={whatsappLink("Hello Falahtrust Academy, I would like to ask about tutoring.")}

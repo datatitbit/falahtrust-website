@@ -11,13 +11,18 @@
  *   three categories) and dropped the "Online Shop" / cart concept — the
  *   owner asked for the service/category browsing pattern only, not an
  *   e-commerce storefront (no prices, stock or checkout exist to back one).
- * - `address` and `hours` were not supplied and stay `null`; the site simply
- *   omits those rows until real values are added here (owner instruction
- *   2026-09-16: ask directly for missing facts, never show placeholder text
- *   on the live site).
+ * - `address` stays `null` per owner instruction ("leave it as it was") — still
+ *   not shown anywhere until a real address is supplied.
+ * - `hours` is now a standard weekday retail schedule, at the owner's explicit
+ *   request ("opening hours use standard") rather than a real confirmed
+ *   time — tracked as a default in HANDOFF_REPORT.md, easy to correct.
+ * - CCTV installation was confirmed by the owner in chat and added to that
+ *   category's item list.
+ * - No prices are stated anywhere on the site (owner instruction: "find a way
+ *   not to specify" pricing) — category pages and the FAQ instead say
+ *   pricing depends on the request and point to WhatsApp/phone for a quote.
  * - Category and FAQ copy is drafted by us from the owner's category names;
- *   normal marketing copy, not a fact that could be fabricated. No prices,
- *   brands, stock levels or install-service claims are stated anywhere.
+ *   normal marketing copy, not a fact that could be fabricated.
  */
 
 export const site = {
@@ -37,11 +42,15 @@ export const contact = {
   phone: { display: "+233 20 959 3337", href: "tel:+233209593337" },
   whatsapp: { display: "+233 20 959 3337" },
   email: { display: "falahtrustgh@gmail.com", href: "mailto:falahtrustgh@gmail.com" },
-  /** Not supplied by the client yet. */
+  /** Not supplied by the client yet — leave as null (owner instruction). */
   address: null as string | null,
-  /** Not supplied by the client yet. */
-  hours: null as string | null,
+  /** Standard weekday retail hours, at the owner's request — not independently confirmed. */
+  hours: "Monday – Saturday, 8:00 AM – 6:00 PM" as string | null,
 };
+
+/** Consistent, non-committal answer to "how much does this cost?" — no price is ever stated. */
+export const pricingNote =
+  "Pricing depends on exactly what you need, so we don't list prices here — message us on WhatsApp or call for a quote.";
 
 export const socials: { name: string; icon: IconName; href: string }[] = [
   { name: "Instagram", icon: "instagram", href: "https://www.instagram.com/falahtrustgh/" },
@@ -209,8 +218,8 @@ export const categories: Category[] = [
     tagline: "CCTV cameras & accessories",
     summary: "CCTV cameras and accessories to help you keep an eye on your home or business.",
     icon: "cctv",
-    items: ["CCTV cameras", "CCTV accessories"],
-    keywords: ["CCTV cameras Ghana", "security cameras Ghana"],
+    items: ["CCTV cameras", "CCTV accessories", "CCTV installation"],
+    keywords: ["CCTV cameras Ghana", "security cameras Ghana", "CCTV installation Ghana"],
   },
   {
     slug: "gaming-entertainment",
@@ -359,7 +368,11 @@ export const faqs: { q: string; a: string }[] = [
     a: "Yes. Delivery & Logistics covers local delivery, document and parcel delivery, and business delivery services.",
   },
   {
+    q: "How much do your services cost?",
+    a: pricingNote,
+  },
+  {
     q: "Where are you located and when are you open?",
-    a: "Our location and opening hours will be listed here shortly. In the meantime, message or call us and we will point you in the right direction.",
+    a: `We're open ${contact.hours}. Our street address will be listed here shortly — in the meantime, message or call us and we will point you in the right direction.`,
   },
 ];
