@@ -72,7 +72,7 @@ export function CommunitySignup() {
           id="community-name"
           name="name"
           type="text"
-          placeholder="Name (optional)"
+          placeholder="Name"
           autoComplete="name"
           className="field !bg-white/5 !text-white placeholder:text-slate-400 sm:col-span-2"
         />
