@@ -5,10 +5,10 @@
  * Handles two distinct forms from the site, told apart by `kind`:
  *  - "quote"     — the detailed request form (name, contact, SERVICE, message).
  *                  Used when someone wants a specific service quoted.
- *  - "community" — the lightweight "stay in the loop" signup (name, one
- *                  contact method). Used to build a list of interested
- *                  people to reach out to later — no service field, because
- *                  none is needed for that purpose.
+ *  - "community" — the lightweight "stay in the loop" signup (name, email,
+ *                  phone — at least one of email/phone). Used to build a
+ *                  list of interested people to reach out to later — no
+ *                  service field, because none is needed for that purpose.
  *
  * Both simply email the submitted fields to the business and reply with
  * JSON. Nothing is written to a database or file — the email itself is the
@@ -53,24 +53,34 @@ if ($honeypot !== '') {
 $kind = ($_POST['kind'] ?? 'quote') === 'community' ? 'community' : 'quote';
 
 if ($kind === 'community') {
-    $name    = clean($_POST['name'] ?? '', 120);
-    $contact = clean($_POST['contact'] ?? '', 200);
+    $name  = clean($_POST['name'] ?? '', 120);
+    $email = clean($_POST['email'] ?? '', 200);
+    $phone = clean($_POST['phone'] ?? '', 40);
 
-    if ($contact === '') {
-        respond(false, 'Please add your email or WhatsApp number.');
+    $emailValid = $email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    if ($email !== '' && !$emailValid) {
+        respond(false, 'Please enter a valid email address, or leave it blank and add a phone number instead.');
+    }
+    if (!$emailValid && $phone === '') {
+        respond(false, 'Please add your email address or phone number.');
     }
 
-    $isEmail = filter_var($contact, FILTER_VALIDATE_EMAIL) !== false;
     $subject = 'New "stay in the loop" sign-up — Falahtrust website';
     $bodyLines = [
         'Someone joined the Falahtrust community list from the website.',
         '',
         'Name: ' . ($name !== '' ? $name : '(not given)'),
-        'Contact: ' . $contact,
     ];
+    if ($emailValid) {
+        $bodyLines[] = 'Email: ' . $email;
+    }
+    if ($phone !== '') {
+        $bodyLines[] = 'Phone: ' . $phone;
+    }
+
     $headers = [$fromHeader, 'Content-Type: text/plain; charset=UTF-8'];
-    if ($isEmail) {
-        $headers[] = 'Reply-To: ' . ($name !== '' ? $name . ' ' : '') . '<' . $contact . '>';
+    if ($emailValid) {
+        $headers[] = 'Reply-To: ' . ($name !== '' ? $name . ' ' : '') . '<' . $email . '>';
     }
 
     $sent = @mail($to, $subject, implode("\n", $bodyLines) . "\n", implode("\r\n", $headers));
