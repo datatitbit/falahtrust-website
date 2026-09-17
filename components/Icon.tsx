@@ -133,6 +133,45 @@ const paths: Record<IconName, ReactNode> = {
       stroke="none"
     />
   ),
+  printer: (
+    <>
+      <path d="M7 8V4h10v4M7 17h10v4H7z" />
+      <rect x="3" y="8" width="18" height="8" rx="1.5" />
+      <path d="M7 12h.01" strokeWidth={2.4} />
+    </>
+  ),
+  laptop: (
+    <>
+      <rect x="4" y="4.5" width="16" height="10.5" rx="1.5" />
+      <path d="M2.5 19.5h19L20 15.5H4z" />
+    </>
+  ),
+  cctv: (
+    <>
+      <path d="M3 6l11-2.5v5L3 11z" />
+      <path d="M14 5.5h4a2.5 2.5 0 0 1 0 5h-1" />
+      <path d="M6.5 11v3a2 2 0 0 0 2 2h1M9.5 20l1-4" />
+    </>
+  ),
+  gamepad: (
+    <>
+      <path d="M7 8h10a4.5 4.5 0 0 1 4.3 5.9l-.5 1.5a2.3 2.3 0 0 1-4-1l-.3-.9a2 2 0 0 0-1.9-1.4H9.4a2 2 0 0 0-1.9 1.4l-.3.9a2.3 2.3 0 0 1-4 1l-.5-1.5A4.5 4.5 0 0 1 7 8z" />
+      <path d="M7.5 11v2.5M6.25 12.25h2.5M15.5 11.5h.01M17.5 13.5h.01" strokeWidth={2.2} />
+    </>
+  ),
+  bolt: <path d="M13 2 4 14h6l-1 8 9-12h-6z" fill="currentColor" stroke="none" />,
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+    </>
+  ),
+  graduationCap: (
+    <>
+      <path d="M2 8.5 12 4l10 4.5-10 4.5z" />
+      <path d="M6.5 10.8V16c0 1.4 2.5 3 5.5 3s5.5-1.6 5.5-3v-5.2M20 9v6" />
+    </>
+  ),
 };
 
 export function Icon({ name, ...rest }: { name: IconName } & SVGProps<SVGSVGElement>) {

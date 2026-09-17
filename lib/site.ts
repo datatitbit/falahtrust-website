@@ -2,17 +2,22 @@
  * Single source of truth for Falahtrust Enterprise's business details.
  *
  * Provenance (see HANDOFF_REPORT.md):
- * - Name, tagline, services, phone, WhatsApp, email and the regulatory notice
- *   come from the client's intake form (2026-09-12). Country code +233 was
- *   confirmed by the owner in chat.
+ * - Name, tagline, phone, WhatsApp, email, socials and the regulatory notice
+ *   come from the client (intake 2026-09-12; email/socials confirmed in chat
+ *   2026-09-16). Country code +233 was confirmed by the owner in chat.
+ * - The 10 service categories and Falahtrust Academy's programme list come
+ *   directly from the owner's own category breakdown (chat, 2026-09-17). We
+ *   deduplicated overlapping items (e.g. chargers/power banks appeared under
+ *   three categories) and dropped the "Online Shop" / cart concept — the
+ *   owner asked for the service/category browsing pattern only, not an
+ *   e-commerce storefront (no prices, stock or checkout exist to back one).
  * - `address` and `hours` were not supplied and stay `null`; the site simply
  *   omits those rows until real values are added here (owner instruction
  *   2026-09-16: ask directly for missing facts, never show placeholder text
  *   on the live site).
- * - Social links and the enquiries email were supplied by the owner in chat
- *   on 2026-09-16 (email replaces the intake's Falahtrust11@gmail.com).
- * - Service summaries, values and "how it works" wording are drafted by us;
- *   normal marketing copy, not a fact that could be fabricated.
+ * - Category and FAQ copy is drafted by us from the owner's category names;
+ *   normal marketing copy, not a fact that could be fabricated. No prices,
+ *   brands, stock levels or install-service claims are stated anywhere.
  */
 
 export const site = {
@@ -20,10 +25,10 @@ export const site = {
   shortName: "Falahtrust",
   tagline: "Teaching minds, building wealth and serving faith",
   description:
-    "Business registration support, document and online application help, mobile money, phone accessories, delivery and education, in one trusted place.",
+    "Mobile money, document and government services, printing, phones and computers, CCTV, delivery and Falahtrust Academy tutoring — everyday services in one trusted place in Ghana.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://falahtrustgh.com",
   /** While true, search engines are asked not to index the site (no visible effect on the page itself). */
-  isPreview: true,
+  isPreview: false,
 } as const;
 
 const WHATSAPP_NUMBER = "233209593337";
@@ -85,76 +90,210 @@ export type IconName =
   | "twitter"
   | "youtube"
   | "facebook"
-  | "tiktok";
+  | "tiktok"
+  | "printer"
+  | "laptop"
+  | "cctv"
+  | "gamepad"
+  | "bolt"
+  | "globe"
+  | "graduationCap";
 
-export interface Service {
-  id: string;
+export interface Category {
+  slug: string;
   title: string;
+  /** Short phrase for cards and nav. */
+  tagline: string;
+  /** Longer paragraph for the category page and meta description. */
   summary: string;
   icon: IconName;
-  /** Detail the client still needs to confirm. Not shown on the page; tracked in HANDOFF_REPORT.md. */
-  pending?: string;
-  /** Compliance wording that must stay attached to this service. */
+  /** Real sub-items from the owner's own category list. Not a live, priced catalogue. */
+  items: string[];
+  /** Compliance wording that must stay attached to this category. */
   notice?: string;
-  /** Spans two columns on large screens. */
-  wide?: "first" | "last";
+  /** Points to a related category to avoid duplicate listings (e.g. accessories shared with Gaming). */
+  seeAlso?: { slug: string; label: string };
+  /** Search terms this page should read naturally for. */
+  keywords: string[];
 }
 
-export const services: Service[] = [
+export const categories: Category[] = [
   {
-    id: "mobile-money",
-    title: "Mobile Money Services",
+    slug: "mobile-money",
+    title: "MoMo & Financial Services",
+    tagline: "Mobile money, agent SIM and transfers",
     summary:
-      "Mobile money transactions handled for you through authorised telecommunications and mobile-money platforms, quickly and with care.",
+      "Mobile money cash-in, cash-out, agent SIM services and money transfers, handled through authorised telecommunications and mobile-money platforms.",
     icon: "wallet",
+    items: ["MoMo cash-in / cash-out", "Agent SIM services", "Money transfer services"],
     notice: "Falahtrust is not a bank and does not offer lending or investment services.",
-    wide: "first",
+    keywords: ["mobile money Ghana", "MoMo agent Ghana", "cash-in cash-out", "money transfer Ghana"],
   },
   {
-    id: "business-registration",
-    title: "Business Registration Support",
+    slug: "documents",
+    title: "Document & Government Services",
+    tagline: "Ghana Card, passport, certificates & registration",
     summary:
-      "Support getting your business registered, from putting your paperwork in order to submitting it through the right channels.",
-    icon: "building",
-  },
-  {
-    id: "document-services",
-    title: "Document Services",
-    summary:
-      "Help preparing, organising and completing the documents your personal and business needs call for.",
+      "Help with official documents and government processes — Ghana Card, passport, certificates, business registration and online applications — so nothing gets held up by a missing form or the wrong channel.",
     icon: "file",
+    items: [
+      "Ghana Card applications",
+      "Ghanaian passport applications",
+      "Birth certificate",
+      "Marriage certificate",
+      "Driver's licence",
+      "Affidavit & gazette notices",
+      "Business registration support",
+      "Online government applications",
+      "Other document assistance",
+    ],
+    keywords: [
+      "Ghana Card application",
+      "Ghana passport application",
+      "birth certificate Ghana",
+      "marriage certificate Ghana",
+      "business registration Ghana",
+      "affidavit Ghana",
+    ],
   },
   {
-    id: "online-applications",
-    title: "Online Application Assistance",
+    slug: "printing-stationery",
+    title: "Printing, Photocopy & Stationery",
+    tagline: "Printing, photocopying, scanning & supplies",
     summary:
-      "Help completing online applications correctly, so nothing is held up by a missed field or the wrong upload.",
-    icon: "monitor",
+      "Printing, photocopying and scanning while you wait, plus stationery, books and e-books for school, work or home.",
+    icon: "printer",
+    items: ["Printing", "Photocopying", "Scanning", "Stationery supplies", "Books", "E-books"],
+    keywords: ["printing services Ghana", "photocopy near me", "stationery shop Ghana", "scanning services"],
   },
   {
-    id: "education",
-    title: "Education & Learning",
-    summary: "Learning support that lives up to the first promise in our name: teaching minds.",
-    icon: "book",
-    pending: "[Programme and class details]",
-  },
-  {
-    id: "accessories",
-    title: "Phones & Computer Accessories",
+    slug: "phones-accessories",
+    title: "Phones & Mobile Accessories",
+    tagline: "Phones, chargers, earphones & smart watches",
     summary:
-      "Phone and computer accessories and related products. Message us to check what is currently in stock.",
+      "Mobile phones and the accessories that go with them — chargers, power banks, earpieces, AirPods, headphones, Bluetooth speakers, smart watches and watches.",
     icon: "smartphone",
-    pending: "[Product range and pricing]",
+    items: [
+      "Mobile phones",
+      "Phone accessories",
+      "Chargers",
+      "Power banks",
+      "Earpieces",
+      "AirPods",
+      "Headphones",
+      "Bluetooth speakers",
+      "Smart watches",
+      "Watches",
+    ],
+    keywords: [
+      "phone accessories Ghana",
+      "chargers and power banks",
+      "earpieces Ghana",
+      "smart watches Ghana",
+      "Bluetooth speakers Ghana",
+    ],
   },
   {
-    id: "delivery",
-    title: "Delivery & E-commerce",
+    slug: "computers-technology",
+    title: "Computers & Technology",
+    tagline: "Laptops, desktops & computer accessories",
     summary:
-      "Delivery services that get your orders and items to where they need to be, arranged with a single message.",
-    icon: "truck",
-    pending: "[Delivery areas and fees]",
-    wide: "last",
+      "Laptops, desktop computers and the accessories that keep them running — keyboards, peripherals, tripods and cameras.",
+    icon: "laptop",
+    items: ["Laptops", "Desktop computers", "Computer accessories", "Keyboards", "Computer peripherals", "Tripods", "Cameras"],
+    keywords: ["laptops Ghana", "computer accessories Ghana", "keyboards Ghana", "desktop computers Ghana"],
   },
+  {
+    slug: "cctv-security",
+    title: "CCTV & Security",
+    tagline: "CCTV cameras & accessories",
+    summary: "CCTV cameras and accessories to help you keep an eye on your home or business.",
+    icon: "cctv",
+    items: ["CCTV cameras", "CCTV accessories"],
+    keywords: ["CCTV cameras Ghana", "security cameras Ghana"],
+  },
+  {
+    slug: "gaming-entertainment",
+    title: "Gaming & Entertainment",
+    tagline: "Game consoles & accessories",
+    summary: "Game consoles and gaming accessories for the entertainment side of technology.",
+    icon: "gamepad",
+    items: ["Game consoles", "Gaming accessories"],
+    seeAlso: { slug: "phones-accessories", label: "speakers, headphones and earpieces" },
+    keywords: ["game consoles Ghana", "gaming accessories Ghana"],
+  },
+  {
+    slug: "electrical-gadgets",
+    title: "Electrical & Basic Gadgets",
+    tagline: "Everyday electrical gadgets",
+    summary: "Everyday electrical gadgets, electronic accessories and other small electronic devices.",
+    icon: "bolt",
+    items: ["Basic electrical gadgets", "Electronic accessories", "Other small electronic devices"],
+    seeAlso: { slug: "phones-accessories", label: "chargers and power banks" },
+    keywords: ["electrical gadgets Ghana", "electronic accessories Ghana"],
+  },
+  {
+    slug: "delivery-logistics",
+    title: "Delivery & Logistics",
+    tagline: "Local, document & parcel delivery",
+    summary: "Getting things where they need to be — documents, parcels, shop orders and business deliveries.",
+    icon: "truck",
+    items: ["Local delivery", "Document delivery", "Parcel delivery", "Shop-to-customer delivery", "Business delivery services"],
+    keywords: ["delivery service Ghana", "document delivery Ghana", "parcel delivery Ghana"],
+  },
+  {
+    slug: "sourcing-import-export",
+    title: "Sourcing, Import & Export",
+    tagline: "Online purchase, sourcing & bulk orders",
+    summary:
+      "Help finding, sourcing and bringing in the products you need — locally or from abroad — including bulk and special orders.",
+    icon: "globe",
+    items: [
+      "Online purchase assistance",
+      "Product sourcing",
+      "International product sourcing",
+      "Importation",
+      "Exportation",
+      "Bulk orders",
+      "Special product requests",
+    ],
+    keywords: ["product sourcing Ghana", "import export Ghana", "bulk orders Ghana"],
+  },
+];
+
+export function getCategory(slug: string) {
+  return categories.find((c) => c.slug === slug);
+}
+
+export const academy = {
+  slug: "academy",
+  title: "Falahtrust Academy",
+  tagline: "Teaching minds — the first promise in our name.",
+  summary:
+    "Online tutoring and educational consultancy, covering the sciences, Arabic and Islamic education, plus guidance for students figuring out their next academic step.",
+  icon: "graduationCap" as IconName,
+  programmes: [
+    "Online tutoring — Biology",
+    "Online tutoring — General Science",
+    "Online tutoring — Arabic",
+    "Online tutoring — Islamic education",
+    "Educational consultancy & academic guidance",
+    "Online classes",
+    "Educational e-books",
+  ],
+  keywords: ["online tutoring Ghana", "Arabic tutor Ghana", "Islamic education tutor", "educational consultancy Ghana"],
+};
+
+/** Featured on the homepage immediately under the hero, per the owner's brief. */
+export const quickLinks: { label: string; slug: string; icon: IconName }[] = [
+  { label: "Phones & Accessories", slug: "phones-accessories", icon: "smartphone" },
+  { label: "Computers", slug: "computers-technology", icon: "laptop" },
+  { label: "Documents", slug: "documents", icon: "file" },
+  { label: "MoMo", slug: "mobile-money", icon: "wallet" },
+  { label: "Printing", slug: "printing-stationery", icon: "printer" },
+  { label: "CCTV", slug: "cctv-security", icon: "cctv" },
+  { label: "Academy", slug: "academy", icon: "graduationCap" },
+  { label: "Delivery", slug: "delivery-logistics", icon: "truck" },
 ];
 
 export const pillars: { title: string; body: string; icon: IconName }[] = [
@@ -190,8 +329,7 @@ export const steps: { title: string; body: string }[] = [
   },
 ];
 
-/** `pending` is tracked in HANDOFF_REPORT.md but not shown on the page. */
-export const faqs: { q: string; a: string; pending?: string }[] = [
+export const faqs: { q: string; a: string }[] = [
   {
     q: "Is Falahtrust a bank or a lender?",
     a: regulatoryNotice,
@@ -201,13 +339,27 @@ export const faqs: { q: string; a: string; pending?: string }[] = [
     a: `Send us a WhatsApp message or call ${contact.phone.display}, or email ${contact.email.display}. You can also use the request form on this page to start a WhatsApp message with your details filled in.`,
   },
   {
+    q: "Do you help with Ghana Card, passport or other document applications?",
+    a: "Yes. Document & Government Services covers Ghana Card, Ghanaian passport, birth and marriage certificates, driver's licence, affidavits and business registration support.",
+  },
+  {
+    q: "Do you sell laptops, phones or computer accessories?",
+    a: "Yes. Phones & Mobile Accessories and Computers & Technology cover phones, laptops, and the accessories that go with them. Message us to check current availability.",
+  },
+  {
+    q: "Does Falahtrust Academy offer tutoring for school subjects?",
+    a: "Yes. Falahtrust Academy offers online tutoring in Biology, General Science, Arabic and Islamic education, plus educational consultancy and academic guidance.",
+  },
+  {
+    q: "Can you help me import or source a product from abroad?",
+    a: "Yes. Sourcing, Import & Export covers product sourcing, international sourcing, importation, exportation and bulk orders.",
+  },
+  {
     q: "Do you offer delivery?",
-    a: "Yes. Delivery is one of our services.",
-    pending: "[Delivery areas and fees]",
+    a: "Yes. Delivery & Logistics covers local delivery, document and parcel delivery, and business delivery services.",
   },
   {
     q: "Where are you located and when are you open?",
     a: "Our location and opening hours will be listed here shortly. In the meantime, message or call us and we will point you in the right direction.",
-    pending: "[Business Address] · [Opening Hours]",
   },
 ];

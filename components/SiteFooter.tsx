@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { contact, regulatoryNotice, services, site, socials, whatsappLink } from "@/lib/site";
+import { academy, categories, contact, regulatoryNotice, site, socials, whatsappLink } from "@/lib/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -37,19 +37,25 @@ export function SiteFooter() {
         <div>
           <h2 className="font-display text-sm font-semibold tracking-wide text-white">Services</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
-            {services.map((s) => (
-              <li key={s.id}>
-                <Link href={`/#${s.id}`} className="hover:text-gold-300">
-                  {s.title}
+            {categories.slice(0, 6).map((c) => (
+              <li key={c.slug}>
+                <Link href={`/services/${c.slug}`} className="hover:text-gold-300">
+                  {c.title}
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/services" className="font-semibold text-gold-300 hover:text-gold-200">
+                All services →
+              </Link>
+            </li>
           </ul>
         </div>
 
         <div>
           <h2 className="font-display text-sm font-semibold tracking-wide text-white">Explore</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
+            <li><Link href="/academy" className="hover:text-gold-300">{academy.title}</Link></li>
             <li><Link href="/#values" className="hover:text-gold-300">Our values</Link></li>
             <li><Link href="/#how-it-works" className="hover:text-gold-300">How it works</Link></li>
             <li><Link href="/#faq" className="hover:text-gold-300">FAQ</Link></li>

@@ -1,8 +1,22 @@
-# Falahtrust Enterprise — landing page
+# Falahtrust Enterprise — website
 
-Single-page marketing site for **Falahtrust Enterprise**: business registration support, document and online application help, mobile money (through authorised platforms), phone and computer accessories, delivery and education.
+Multi-page site for **Falahtrust Enterprise**: ten service categories (MoMo & financial services,
+document & government services, printing, phones, computers, CCTV, gaming, electrical gadgets,
+delivery, and sourcing/import-export) plus **Falahtrust Academy** (tutoring & educational
+consultancy). No e-commerce/cart — every category browses like a service, with a WhatsApp/call/email
+CTA to order or ask, the same honest "message us" pattern used throughout.
 
 Built with Next.js 16 (App Router, static export), TypeScript and Tailwind CSS 4.
+
+## Site map
+
+| Route | What it is |
+|---|---|
+| `/` | Home — hero, quick-access category grid, all 10 categories, Academy teaser, values, FAQ, contact |
+| `/services` | All 10 categories |
+| `/services/[slug]` | One page per category (generated from `lib/site.ts` → `categories`) |
+| `/academy` | Falahtrust Academy |
+| `/privacy` | Privacy policy & financial-services notice |
 
 ## Run it locally
 
@@ -21,8 +35,11 @@ Almost everything a non-developer would change lives in **`lib/site.ts`**:
 |---|---|
 | Phone, WhatsApp, email | `contact` and `WHATSAPP_NUMBER` |
 | Address / opening hours (not shown until set) | `contact.address`, `contact.hours` — replace `null` with text |
-| Services, values, steps, FAQs | `services`, `pillars`, `steps`, `faqs` |
-| Allow search engines to index the site | set `site.isPreview` to `false` |
+| Service categories (title, items, icon) | `categories` — adding one automatically creates its `/services/[slug]` page |
+| Falahtrust Academy programmes | `academy` |
+| Homepage quick-access cards | `quickLinks` |
+| Values, steps, FAQs | `pillars`, `steps`, `faqs` |
+| Allow search engines to index the site | `site.isPreview` (currently `false` — the site is indexable) |
 
 The site never shows placeholder or "draft" markers to visitors — a detail that's missing (address, hours, a service's pricing) is simply left out of the page rather than shown as `[bracketed text]`. What's still missing is tracked in `HANDOFF_REPORT.md` and as `pending` notes in `lib/site.ts`, and asked for directly instead.
 
@@ -40,6 +57,13 @@ Live domain: **https://falahtrustgh.com** (document root `/home/<cpanel-user>/fa
 
 `public/.htaccess` handles clean URLs, the 404 page, www → apex redirect, security headers and caching. The HTTPS redirect is marked `HTTPS-ENABLE`.
 
+## SEO
+
+- Every page has its own title, meta description and canonical URL; category pages also carry keyword lists.
+- Structured data: `LocalBusiness` + `FAQPage` on the homepage, `Service` + `BreadcrumbList` on each category page, `EducationalOrganization` on `/academy`, `ItemList` on `/services`.
+- `public/llms.txt` gives AI assistants a plain-language summary of what the business offers — kept in sync with `lib/site.ts` by hand; update both together.
+- `robots.txt`/`sitemap.xml` are generated from `site.isPreview` and `categories` — a new category is added to the sitemap automatically.
+
 ## Important
 
-`site.isPreview` is `true`, so the site asks search engines not to index it. Flip it once the privacy page has had legal review and you're ready for the site to appear in search results.
+`site.isPreview` is `false`, so the site is indexable now. The privacy page still needs the client's own legal review before the business relies on it.

@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { CategoryCard } from "@/components/CategoryCard";
 import { Icon } from "@/components/Icon";
 import { RequestForm } from "@/components/RequestForm";
 import {
+  academy,
+  categories,
   contact,
   faqs,
   pillars,
+  quickLinks,
   regulatoryNotice,
-  services,
   site,
   socials,
   steps,
@@ -26,15 +29,26 @@ export default function Home() {
     image: `${site.url}/opengraph-image.png`,
     telephone: "+233209593337",
     email: contact.email.display,
+    areaServed: "GH",
     sameAs: socials.map((s) => s.href),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Services",
-      itemListElement: services.map((s) => ({
+      itemListElement: [...categories, academy].map((c) => ({
         "@type": "Offer",
-        itemOffered: { "@type": "Service", name: s.title },
+        itemOffered: { "@type": "Service", name: c.title },
       })),
     },
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
 
   return (
@@ -43,9 +57,14 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, "\\u003c") }}
+      />
       <Hero />
-      <ServiceStrip />
-      <Services />
+      <QuickLinks />
+      <Categories />
+      <AcademyTeaser />
       <Values />
       <HowItWorks />
       <Notice />
@@ -107,12 +126,12 @@ function Hero() {
             id="hero-title"
             className="mt-6 font-display text-[2.6rem] leading-[1.06] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[4.1rem]"
           >
-            Everyday business services, <span className="text-gold-gradient">in one trusted place.</span>
+            Everyday services in Ghana, <span className="text-gold-gradient">in one trusted place.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
-            {site.name} helps you register your business, sort out documents and online applications,
-            handle mobile money, shop phone and computer accessories and arrange deliveries, without
-            running between different places.
+            {site.name} helps you with mobile money, Ghana Card and passport applications, printing, phones and
+            computers, CCTV, delivery and Falahtrust Academy tutoring — without running between different
+            places.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -126,8 +145,8 @@ function Hero() {
               Chat on WhatsApp
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
-            <Link href="#services" className="btn btn-ghost-dark">
-              Explore services
+            <Link href="/services" className="btn btn-ghost-dark">
+              Browse services
               <Icon name="arrowRight" />
             </Link>
           </div>
@@ -152,76 +171,80 @@ function Hero() {
   );
 }
 
-function ServiceStrip() {
+function QuickLinks() {
   return (
-    <div className="border-y border-white/10 bg-navy-950 text-slate-300">
-      <ul
-        aria-label="Services at a glance"
-        className="container-page flex flex-wrap items-center justify-center gap-x-6 gap-y-3 py-5 text-sm font-medium"
-      >
-        {services.map((s, i) => (
-          <li key={s.id} className="flex items-center gap-6">
-            {i > 0 && <Icon name="star" className="size-2.5 text-gold-500" />}
-            {s.title}
-          </li>
-        ))}
-      </ul>
+    <div className="border-y border-white/10 bg-navy-950">
+      <div className="container-page py-8">
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+          {quickLinks.map((q) => (
+            <li key={q.slug}>
+              <Link
+                href={q.slug === "academy" ? "/academy" : `/services/${q.slug}`}
+                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-5 text-center transition-colors hover:border-gold-400/50 hover:bg-white/[0.06]"
+              >
+                <span className="grid size-12 place-items-center rounded-xl bg-gold-400 text-navy-900 transition-transform group-hover:scale-105">
+                  <Icon name={q.icon} className="size-6" />
+                </span>
+                <span className="text-sm font-semibold text-slate-100">{q.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
 
-function Services() {
+function Categories() {
   return (
     <section id="services" aria-labelledby="services-title" className="py-20 sm:py-28">
       <div className="container-page">
-        <SectionHeading
-          id="services-title"
-          eyebrow="What we do"
-          title="Seven services, one team you can trust"
-          intro="From registering your business to getting a parcel delivered, Falahtrust brings the everyday services you depend on together under one roof."
-        />
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <SectionHeading
+            id="services-title"
+            eyebrow="What we do"
+            title="Ten categories, one team you can trust"
+            intro="From Ghana Card applications to laptops and CCTV, Falahtrust brings the everyday services you depend on together under one roof."
+          />
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 pb-1 text-sm font-semibold text-brand-ink hover:gap-3"
+          >
+            View all services
+            <Icon name="arrowRight" className="size-4 transition-all" />
+          </Link>
+        </div>
 
         <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <li
-              key={s.id}
-              id={s.id}
-              className={`card reveal ${s.wide === "first" ? "sm:col-span-2" : ""} ${
-                s.wide === "last" ? "lg:col-span-2" : ""
-              }`}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <span className="icon-tile">
-                  <Icon name={s.icon} />
-                </span>
-                {s.wide === "first" && (
-                  <span className="rounded-full bg-surface-2 px-3 py-1 text-xs font-semibold text-accent-ink">
-                    Through authorised platforms
-                  </span>
-                )}
-              </div>
-              <h3 className="font-display text-xl font-semibold text-ink">{s.title}</h3>
-              <p className="leading-relaxed text-muted">{s.summary}</p>
-
-              {s.notice && (
-                <p className="flex gap-2 rounded-xl bg-surface-2 p-3 text-sm leading-snug text-ink">
-                  <Icon name="shield" className="mt-px size-4 flex-none text-accent-ink" />
-                  {s.notice}
-                </p>
-              )}
-
-              <a
-                href={whatsappLink(`Hello Falahtrust, I would like to ask about ${s.title}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-semibold text-brand-ink hover:gap-3"
-              >
-                Ask about this<span className="sr-only">: {s.title} (opens WhatsApp in a new tab)</span>
-                <Icon name="arrowRight" className="size-4 transition-all" />
-              </a>
-            </li>
+          {categories.map((c) => (
+            <CategoryCard key={c.slug} category={c} />
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+function AcademyTeaser() {
+  return (
+    <section aria-labelledby="academy-title" className="border-y border-line bg-surface-2 py-16 sm:py-20">
+      <div className="container-page flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex items-start gap-5">
+          <span className="icon-tile !size-14 flex-none">
+            <Icon name={academy.icon} className="!size-7" />
+          </span>
+          <div>
+            <p className="eyebrow">Teaching minds</p>
+            <h2 id="academy-title" className="mt-2 font-display text-2xl font-semibold text-ink sm:text-3xl">
+              {academy.title}
+            </h2>
+            <p className="mt-3 max-w-xl leading-relaxed text-muted">{academy.summary}</p>
+          </div>
+        </div>
+        <Link href="/academy" className="btn border border-line text-ink hover:border-gold-500 lg:flex-none">
+          Explore Falahtrust Academy
+          <Icon name="arrowRight" className="size-4" />
+        </Link>
       </div>
     </section>
   );

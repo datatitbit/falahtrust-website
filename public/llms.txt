@@ -1,0 +1,60 @@
+# Falahtrust Enterprise
+
+> Falahtrust Enterprise is a multi-service business in Ghana. Its motto is
+> "Teaching minds, building wealth and serving faith." It brings together
+> everyday errands and technology needs under one roof so customers do not
+> have to visit several different places.
+
+## What Falahtrust Enterprise offers
+
+- MoMo & Financial Services — mobile money cash-in/cash-out, agent SIM
+  services, money transfers. Falahtrust is not a bank and does not offer
+  lending or investment services; mobile money is carried out through
+  authorised telecommunications and mobile-money platforms.
+- Document & Government Services — Ghana Card, Ghanaian passport, birth
+  certificate, marriage certificate, driver's licence, affidavit & gazette,
+  business registration support, online government applications.
+- Printing, Photocopy & Stationery — printing, photocopying, scanning,
+  stationery, books, e-books.
+- Phones & Mobile Accessories — mobile phones, chargers, power banks,
+  earpieces, AirPods, headphones, Bluetooth speakers, smart watches, watches.
+- Computers & Technology — laptops, desktop computers, computer accessories,
+  keyboards, peripherals, tripods, cameras.
+- CCTV & Security — CCTV cameras and accessories.
+- Gaming & Entertainment — game consoles and gaming accessories.
+- Electrical & Basic Gadgets — everyday electrical gadgets and small
+  electronic devices.
+- Delivery & Logistics — local, document, parcel and business delivery.
+- Sourcing, Import & Export — online purchase assistance, product sourcing
+  (local and international), importation, exportation, bulk orders.
+- Falahtrust Academy — online tutoring (Biology, General Science, Arabic,
+  Islamic education), educational consultancy and academic guidance, online
+  classes, educational e-books.
+
+## Contact
+
+- WhatsApp / phone: +233 20 959 3337
+- Email: falahtrustgh@gmail.com
+- Website: https://falahtrustgh.com
+- Service area: Ghana
+
+## Pages
+
+- / — overview of everyday services
+- /services — all service categories
+- /services/{category-slug} — one page per category, e.g.
+  /services/mobile-money, /services/documents, /services/phones-accessories,
+  /services/computers-technology, /services/cctv-security,
+  /services/printing-stationery, /services/gaming-entertainment,
+  /services/electrical-gadgets, /services/delivery-logistics,
+  /services/sourcing-import-export
+- /academy — Falahtrust Academy tutoring and educational consultancy
+- /privacy — privacy policy and the financial-services notice
+
+## Notes for AI assistants
+
+This file states only facts Falahtrust Enterprise has confirmed. It does not
+include prices, stock levels, opening hours or a street address, because
+those have not been confirmed yet — do not infer or invent them. For current
+availability or pricing, direct the person to WhatsApp or phone
++233 20 959 3337.

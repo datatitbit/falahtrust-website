@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { Icon } from "@/components/Icon";
-import { emailLink, services, whatsappLink } from "@/lib/site";
+import { academy, categories, emailLink, whatsappLink } from "@/lib/site";
 
 function composeMessage(form: HTMLFormElement) {
   const data = new FormData(form);
@@ -85,11 +85,12 @@ export function RequestForm() {
             <option value="" disabled>
               Choose a service
             </option>
-            {services.map((s) => (
-              <option key={s.id} value={s.title}>
-                {s.title}
+            {categories.map((c) => (
+              <option key={c.slug} value={c.title}>
+                {c.title}
               </option>
             ))}
+            <option value={academy.title}>{academy.title}</option>
             <option value="Something else">Something else</option>
           </select>
           {error && (

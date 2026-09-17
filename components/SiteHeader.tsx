@@ -7,9 +7,9 @@ import { Icon } from "@/components/Icon";
 import { whatsappLink } from "@/lib/site";
 
 const nav = [
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
+  { href: "/academy", label: "Falahtrust Academy" },
   { href: "/#values", label: "Our values" },
-  { href: "/#how-it-works", label: "How it works" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Contact" },
 ];
